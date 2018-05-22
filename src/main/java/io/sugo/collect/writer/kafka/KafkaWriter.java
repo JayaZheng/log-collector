@@ -96,10 +96,10 @@ public class KafkaWriter extends AbstractWriter {
   @Override
   public boolean write(List<String> messages) {
     long now = 0;
-    if (logger.isDebugEnabled()) {
-      now = System.currentTimeMillis();
-      logger.debug("send to kafka, message size:" + messages.size());
-    }
+//    if (logger.isDebugEnabled()) {
+//      now = System.currentTimeMillis();
+//      logger.debug("send to kafka, message size:" + messages.size());
+//    }
 
     Map<Future<RecordMetadata>, String> messageFutureMap = new HashMap<>();
     for (String message : messages) {
@@ -138,10 +138,10 @@ public class KafkaWriter extends AbstractWriter {
       return write(errMsgList);
     }
 
-    if (logger.isDebugEnabled()) {
-      long current = System.currentTimeMillis();
-      logger.debug("success to send to kafka, druration(ms):" + (current - now));
-    }
+//    if (logger.isDebugEnabled()) {
+//      long current = System.currentTimeMillis();
+//      logger.debug("success to send to kafka, druration(ms):" + (current - now));
+//    }
     currentRetryTime = 0;
     return true;
   }

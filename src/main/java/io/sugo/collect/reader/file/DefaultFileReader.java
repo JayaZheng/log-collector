@@ -272,9 +272,9 @@ public class DefaultFileReader extends AbstractReader {
                   Map<String, Object> gmMap = parser.parse(tempString);
 
                   if (gmMap.size() > 0){
-                    gmMap.put("directory", dirPath);
-                    gmMap.put("host", host);
-                    gmMap.put("filename", fileName);
+//                    gmMap.put("directory", dirPath);
+//                    gmMap.put("host", host);
+//                    gmMap.put("filename", fileName);
                     messages.add(gson.toJson(gmMap));
                     if (shouldMetricSuccessProcessed) {
                       readerMetrics.incrementSuccess();
@@ -284,8 +284,8 @@ public class DefaultFileReader extends AbstractReader {
                   }else {
                     error ++;
                     readerMetrics.incrementError();
-                    if (logger.isDebugEnabled())
-                      logger.debug(tempString);
+//                    if (logger.isDebugEnabled())
+//                      logger.debug(tempString);
                   }
                 } catch (Exception e) {
                   if (!(e instanceof IgnorableException)){
@@ -327,7 +327,7 @@ public class DefaultFileReader extends AbstractReader {
         logger.error("reader terminated abnormally ", e);
       } finally {
         readerMap.remove(dirPath);
-    }
+      }
     }
 
     private boolean write(List<String> messages) throws InterruptedException {
