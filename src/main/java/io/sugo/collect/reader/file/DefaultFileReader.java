@@ -272,9 +272,9 @@ public class DefaultFileReader extends AbstractReader {
                   Map<String, Object> gmMap = parser.parse(tempString);
 
                   if (gmMap.size() > 0){
-                    gmMap.put("directory", dirPath);
-                    gmMap.put("host", host);
-                    gmMap.put("filename", fileName);
+                    gmMap.put("sg_directory", dirPath);
+                    gmMap.put("sg_host", host);
+                    gmMap.put("sg_filename", fileName);
                     messages.add(gson.toJson(gmMap));
                     if (shouldMetricSuccessProcessed) {
                       readerMetrics.incrementSuccess();
