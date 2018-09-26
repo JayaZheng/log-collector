@@ -249,7 +249,7 @@ public class DefaultFileReader extends AbstractReader {
               fis.close();
               break;
             }
-            int tmpSize = tempString.getBytes(UTF8).length + lineSeparatorSize;
+            int tmpSize = tempString.getBytes(UTF8).length ;
             if (tmpSize >= maxSize){
               error ++;
               readerMetrics.incrementError();
@@ -300,7 +300,7 @@ public class DefaultFileReader extends AbstractReader {
               }
             }
 
-            currentByteOffset += (tmpSize + 1);
+            currentByteOffset += (tmpSize + lineSeparatorSize);
             line++;
             //分批写入
             if (line % batchSize == 0) {
