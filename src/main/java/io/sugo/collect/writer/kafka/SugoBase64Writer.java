@@ -3,7 +3,7 @@ package io.sugo.collect.writer.kafka;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.sugo.collect.Configure;
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -12,9 +12,8 @@ import java.util.Map;
 
 public class SugoBase64Writer extends KafkaWriter{
   private final Gson gson = new GsonBuilder().create();
-  private static final String SUGO_TIMESTAMP = "sugo_timestamp";
+  private static final String SUGO_TIMESTAMP = "d|sugo_timestamp";
   private static final String TAB = "\t";
-  BASE64Encoder base64Encoder = new BASE64Encoder();
   public SugoBase64Writer(Configure conf) {
     super(conf);
   }
@@ -34,7 +33,7 @@ public class SugoBase64Writer extends KafkaWriter{
         columnStr.append(key);
         valStr.append(msgMap.get(key));
         if (countor ++ < fieldSize - 1){
-          columnStr.append("\001");
+          columnStr.append(",");
           valStr.append("\001");
         }
       }
@@ -42,7 +41,7 @@ public class SugoBase64Writer extends KafkaWriter{
       columnStr.append("\002").append(valStr);
       String body = "";
       try {
-        body = base64Encoder.encode(columnStr.toString().getBytes("UTF-8"));
+        body = Base64.encodeBase64String(columnStr.toString().getBytes("UTF-8"));
       } catch (UnsupportedEncodingException e) {
         e.printStackTrace();
       }
@@ -50,7 +49,7 @@ public class SugoBase64Writer extends KafkaWriter{
       StringBuffer newMsg = new StringBuffer();
       long now = System.currentTimeMillis();
       if (msgMap.containsKey(SUGO_TIMESTAMP)){
-        now = (long) msgMap.get(SUGO_TIMESTAMP);
+        now = Long.valueOf(String.valueOf(msgMap.get(SUGO_TIMESTAMP)));
       }
 
       newMsg.append(now).append(TAB)
@@ -59,12 +58,13 @@ public class SugoBase64Writer extends KafkaWriter{
       List<String> newMsgs = new ArrayList<>();
       newMsgs.add(newMsg.toString());
 
-      for (String msg : newMsgs) {
-        System.out.println(msg);
+//      for (String msg : newMsgs) {
+//        System.out.println(msg);
+//      }
+//      System.out.println("newMsgs : " + newMsgs);
+      if(!super.write(newMsgs)){
+        res = false;
       }
-      //if(!super.write(newMsgs)){
-      //  res = false;
-      //}
     }
     return res;
   }

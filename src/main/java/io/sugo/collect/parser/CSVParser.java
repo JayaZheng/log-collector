@@ -23,11 +23,36 @@ public class CSVParser extends AbstractParser {
   public static final String FILE_READER_CSV_SEPARATOR = "file.reader.csv.separator";
   public static final String FILE_READER_CSV_DIMPATH = "file.reader.csv.dimPath";
   public static final String IGNORE_MESSAGE_TAG = "\001";
+  public static final String DEAL_RESULT_DIMENSION = "deal.result.dimension";
+  public static final String WHITE_LIST_JSON = "white.list.json";
+  public static final String PRO_CATEGORY_JSON = "pro.category.json";
+  public static final String DEAL_RESULT_JSON = "deal.result.json";
+  public static final String DYNAMIC_DIMENSION = "dynamic.dimension";
+  private String dealResultDimension;
+  private String whiteListJsonStr;
+  private String proCategoryJsonStr;
+  private String dealResultJsonStr;
+  private Map<String,List<String>> whiteListMap;
+  private Map<String,String> proCategoryMap;
+  private Map<String,String> dealResultMap;
   private List<Dimension> dimensionList;
   private String separator;
 
   public CSVParser(Configure conf) {
     super(conf);
+    dealResultDimension = conf.getProperty(DEAL_RESULT_DIMENSION,"");
+    whiteListJsonStr = conf.getProperty(WHITE_LIST_JSON,"");
+    proCategoryJsonStr = conf.getProperty(PRO_CATEGORY_JSON,"");
+    dealResultJsonStr = conf.getProperty(DEAL_RESULT_JSON,"");
+    if (!whiteListJsonStr.equals("")){
+      whiteListMap = gson.fromJson(whiteListJsonStr,Map.class);
+    }
+    if (!proCategoryJsonStr.equals("")){
+      proCategoryMap = gson.fromJson(proCategoryJsonStr,Map.class);
+    }
+    if (!dealResultJsonStr.equals("")){
+      dealResultMap = gson.fromJson(dealResultJsonStr,Map.class);
+    }
     separator = conf.getProperty(FILE_READER_CSV_SEPARATOR, ",");
     if (separator.equals("space"))
       separator = " ";
@@ -46,6 +71,7 @@ public class CSVParser extends AbstractParser {
         }.getType());
         dimensionList.add(dimension);
       }
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -62,6 +88,19 @@ public class CSVParser extends AbstractParser {
         value = fields[i];
       try {
         Object readValue = dim.getValue(value);
+        if (whiteListMap.containsKey(dim.name)){
+          if (whiteListMap.get(dim.name).contains(value)){
+            if (proCategoryMap.containsKey(value)){
+              result.put("pro_category",proCategoryMap.get(value));
+            }
+            if (dealResultMap.containsKey(value)){
+              result.put(dim.getName(),dealResultMap.get(value));
+            }
+            continue;
+          }else {
+            return Collections.emptyMap();
+          }
+        }
         if (readValue == null)
           continue;
         if (readValue.equals(IGNORE_MESSAGE_TAG))
@@ -140,9 +179,13 @@ public class CSVParser extends AbstractParser {
       if (isIgnore){
         return null;
       }
-      if (writeList.size() > 0 && !writeList.contains(value)){
-        return IGNORE_MESSAGE_TAG;
-      }
+//      if (writeList.size() > 0 && !writeList.contains(value)){
+//        return IGNORE_MESSAGE_TAG;
+//      }
+//      if (!dealResultDimension.equals("") && !dealResultDimension.equals("90")){
+//        return IGNORE_MESSAGE_TAG;
+//      }
+
       if (StringUtils.isBlank(value)){
         if (defaultValue != null)
           return defaultValue;
@@ -169,7 +212,7 @@ public class CSVParser extends AbstractParser {
           if (sdf == null) {
             this.sdf = new SimpleDateFormat(this.format);
           }
-          return sdf.parse(value.toString()).getTime();
+          return String.valueOf(sdf.parse(value.toString()).getTime());
         }
       }
 

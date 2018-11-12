@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -41,9 +42,11 @@ public class Configure {
     try {
       if (collectorConf.startsWith(CLASSPATH_URL_PREFIX)) {
         collectorConf = StringUtils.substringAfter(collectorConf, CLASSPATH_URL_PREFIX);
-        properties.load(Configure.class.getClassLoader().getResourceAsStream(collectorConf));
+//        properties.load(Configure.class.getClassLoader().getResourceAsStream(collectorConf));
+        properties.load(new InputStreamReader(Configure.class.getClassLoader().getResourceAsStream(collectorConf),"UTF-8"));
       } else {
-        properties.load(new FileInputStream(collectorConf));
+//        properties.load(new FileInputStream(collectorConf));
+        properties.load(new InputStreamReader(new FileInputStream(collectorConf),"UTF-8"));
       }
 
       for (Object key : properties.keySet()) {
