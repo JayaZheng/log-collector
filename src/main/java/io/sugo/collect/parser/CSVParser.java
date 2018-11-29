@@ -88,12 +88,12 @@ public class CSVParser extends AbstractParser {
         value = fields[i];
       try {
         Object readValue = dim.getValue(value);
-        if (whiteListMap.containsKey(dim.name)){
+        if (whiteListMap != null && whiteListMap.containsKey(dim.name)){
           if (whiteListMap.get(dim.name).contains(value)){
-            if (proCategoryMap.containsKey(value)){
+            if (proCategoryMap != null && proCategoryMap.containsKey(value)){
               result.put("pro_category",proCategoryMap.get(value));
             }
-            if (dealResultMap.containsKey(value)){
+            if (dealResultMap != null && dealResultMap.containsKey(value)){
               result.put(dim.getName(),dealResultMap.get(value));
             }
             continue;

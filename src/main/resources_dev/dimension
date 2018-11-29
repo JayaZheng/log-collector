@@ -1,0 +1,116 @@
+[{
+	"name": "flowno",
+	"type": "string",
+    "isIgnore": true
+},
+{
+	"name": "cst_no",
+	"type": "string",
+    "isDynamicDimension": true
+},
+{
+	"name": "pro_bsn_code",
+	"type": "string",
+    "isIgnore": true
+},
+{
+	"name": "payacc",
+	"type": "string",
+    "isIgnore": true
+},
+{
+	"name": "pro_tran_amt",
+	"type": "float",
+    "isDynamicDimension": true
+},
+{
+	"name": "hostflwno",
+	"type": "string",
+    "isIgnore": true
+},
+{
+	"name": "currtype",
+	"type": "string",
+    "isIgnore": true
+},
+{
+	"name": "sugo_timestamp",
+	"type": "date",
+	"format": "yyyyMMddHHmmss",
+    "isDynamicDimension": true
+},
+{
+	"name": "hosterror",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "hostmessage",
+	"type": "string",
+    "isIgnore": true
+},
+{
+	"name": "pro_sts",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "type",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "rcvacc",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "rcvname",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "comitrno",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "rcvbank",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "opennode",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "appid",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "tran_serno",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "hostdate",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "bank",
+	"type": "string",
+	"isIgnore": true
+},
+{
+	"name": "TESTSEX",
+	"type": "string",
+	"isDynamicDimension": true
+},
+{
+    "name": "pro_category",
+    "type": "string",
+    "isIgnore": true
+}]

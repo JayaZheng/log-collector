@@ -1,0 +1,62 @@
+[{
+	"name": "cst_no",
+	"type": "string"
+},
+{
+	"name": "char_id",
+	"type": "string"
+},
+{
+	"name": "char_pwd",
+	"type": "string"
+},
+{
+	"name": "char_first_flag",
+	"type": "string"
+},
+{
+	"name": "char_pay_pwd",
+	"type": "float"
+},
+{
+	"name": "cif_no",
+	"type": "string"
+},
+{
+	"name": "name",
+	"type": "string"
+},
+{
+	"name": "sex",
+	"type": "string"
+},
+{
+	"name": "ctf_type",
+	"type": "string"
+},
+{
+	"name": "ctf_no",
+	"type": "string"
+},
+{
+	"name": "mobile",
+	"type": "string"
+},
+{
+	"name": "stt",
+	"type": "string"
+},
+{
+	"name": "cst_msg",
+	"type": "string"
+},
+{
+	"name": "sup_flag",
+	"type": "string"
+},
+
+{
+    "name": "db_table",
+    "type": "string",
+    "defaultValue": "pb_cst_inf"
+}]
