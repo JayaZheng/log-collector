@@ -15,10 +15,6 @@
 			<directory>src/main/resources</directory>
 			<outputDirectory>conf</outputDirectory>
 		</fileSet>
-		<fileSet>
-			<directory>src/main/resources_dev</directory>
-			<outputDirectory>conf</outputDirectory>
-		</fileSet>
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
